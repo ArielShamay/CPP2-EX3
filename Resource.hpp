@@ -10,6 +10,6 @@ namespace ariel {
         GRAIN,
         ORE
     };
-}
+} // namespace ariel
 
 #endif // RESOURCE_HPP

@@ -1,8 +1,7 @@
-// Tile.cpp
 #include "Tile.hpp"
 
 namespace ariel {
-    Tile::Tile(Type type, int id) : id(id), type(type) {}
+    Tile::Tile(Type type, int id) : type(type), id(id), number(0) {} // עדכון בנאי
 
     Tile::Type Tile::getType() const {
         return type;
@@ -12,7 +11,7 @@ namespace ariel {
         return number;
     }
 
-    Resource::Type Tile::getResource() const {
+    Resource Tile::getResource() const {
         switch (type) {
             case FOREST: return Resource::WOOD;
             case HILL: return Resource::BRICK;

@@ -1,8 +1,8 @@
-// Tile.hpp
 #ifndef TILE_HPP
 #define TILE_HPP
 
 #include <vector>
+#include <string>
 #include "Resource.hpp"
 #include "Edge.hpp"
 #include "Player.hpp"
@@ -16,7 +16,7 @@ namespace ariel {
 
         Type getType() const;
         int getNumber() const;
-        Resource::Type getResource() const;
+        Resource getResource() const;
         void setNumber(int number);
         void addVertex(Vertex* v);
         void addEdge(Edge* edge);
@@ -24,9 +24,10 @@ namespace ariel {
         std::vector<Vertex*>& getVertices();
 
     private:
+        int id;
         Type type;
         int number;
-        std::vector<std::pair<Player*, city>> players;
+        std::vector<std::pair<Player*, Player::city>> players;
         std::vector<Vertex*> vertices;
         std::vector<Edge*> edges;
     };
