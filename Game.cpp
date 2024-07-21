@@ -44,5 +44,16 @@ namespace ariel {
         // Implementation here
         return players[0]; // Placeholder
     }
+
+    void Game::printWinner() const {
+        if (isGameOver()) {
+            std::cout << "Winner: " << getWinner().getName() << std::endl;
+        } else {
+            std::cout << "No winner yet." << std::endl;
+        }
+    }
+
+    Board Game::getBoard() const {
+        return board;
+    }
 } // namespace ariel
-s

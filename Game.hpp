@@ -22,6 +22,9 @@ namespace ariel {
         bool isGameOver() const;
         Player getWinner() const;
 
+        void printWinner() const; // הוספת הפונקציה printWinner
+        Board getBoard() const; // הוספת הפונקציה getBoard
+
     private:
         Board board;
         std::vector<Player> players;
