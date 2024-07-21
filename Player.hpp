@@ -6,11 +6,12 @@
 #include <vector>
 #include "Resource.hpp"
 #include "DevelopmentCard.hpp"
+#include "Board.hpp"
 
 namespace ariel {
     class Player {
     public:
-        enum class city { NONE, SETTLEMENT, CITY }; // הוספת הגדרת city
+        enum class city { NONE, SETTLEMENT, CITY };
 
         Player(const std::string& name);
 
@@ -28,6 +29,15 @@ namespace ariel {
 
         int getVictoryPoints() const;
         void addVictoryPoints(int points);
+
+        // הוספת הפונקציות החסרות
+        void placeSettelemnt(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
+        void placeRoad(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
+        void rollDice();
+        void endTurn();
+        void trade(Player& other, const std::string& giveResource, const std::string& getResource, int giveAmount, int getAmount);
+        void buyDevelopmentCard();
+        void printPoints() const;
 
     private:
         std::string name;
