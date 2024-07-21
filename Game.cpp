@@ -1,39 +1,47 @@
 #include "Game.hpp"
 #include <iostream>
+#include <cstdlib> // עבור הפונקציה rand
+#include <ctime> // עבור הפונקציה time
 
 namespace ariel {
-    Game::Game(const std::vector<Player>& players) : players(players), currentPlayerIndex(0), gameOver(false) {}
+    Game::Game(const std::vector<Player>& players) : players(players), currentPlayerIndex(0), gameOver(false) {
+        std::srand(std::time(0)); // אתחול ה-random seed
+    }
 
     void Game::start() {
-        // Implementation here
+        // התחלת המשחק
     }
 
     void Game::playTurn(Player& player) {
-        // Implementation here
+        // ביצוע תור השחקן
     }
 
     void Game::rollDice(Player& player) {
-        // Implementation here
+        // הטלת הקוביות
+        int diceRoll = (std::rand() % 6 + 1) + (std::rand() % 6 + 1); // הטלת שתי קוביות
+        std::cout << player.getName() << " rolled a " << diceRoll << std::endl;
     }
 
     void Game::buildSettlement(Player& player) {
-        // Implementation here
+        // בניית יישוב
     }
 
     void Game::buildCity(Player& player) {
-        // Implementation here
+        // בניית עיר
     }
 
     void Game::buildRoad(Player& player) {
-        // Implementation here
+        // בניית דרך
     }
 
     void Game::buyDevelopmentCard(Player& player) {
-        // Implementation here
+        // קניית קלף פיתוח
     }
 
     void Game::endTurn(Player& player) {
-        // Implementation here
+        // סיום תור השחקן
+        std::cout << player.getName() << " ends their turn" << std::endl;
+        currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
     bool Game::isGameOver() const {
@@ -41,8 +49,14 @@ namespace ariel {
     }
 
     Player Game::getWinner() const {
-        // Implementation here
-        return players[0]; // Placeholder
+        // חזרה על השחקן המנצח
+        for (const Player& player : players) {
+            if (player.getVictoryPoints() >= 10) {
+                return player;
+            }
+        }
+        // במקרה שאין מנצח, נחזיר את השחקן הראשון
+        return players[0];
     }
 
     void Game::printWinner() const {
@@ -56,4 +70,9 @@ namespace ariel {
     Board Game::getBoard() const {
         return board;
     }
-} // namespace ariel
+
+    void Game::ChooseStartingPlayer() {
+        currentPlayerIndex = std::rand() % players.size();
+        std::cout << "Starting player: " << players[currentPlayerIndex].getName() << std::endl;
+    }
+}

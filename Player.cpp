@@ -1,3 +1,4 @@
+#include "Board.hpp"
 #include "Player.hpp"
 #include <iostream>
 
@@ -49,7 +50,7 @@ namespace ariel {
         victoryPoints += points;
     }
 
-    void Player::placeSettelemnt(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board) {
+    void Player::placeSettlement(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board) {
         // Implementation here
         std::cout << name << " places a settlement at " << places[0] << " with number " << placesNum[0] << std::endl;
     }

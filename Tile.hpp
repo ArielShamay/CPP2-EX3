@@ -6,6 +6,7 @@
 #include "Resource.hpp"
 #include "Edge.hpp"
 #include "Player.hpp"
+#include "Vertex.hpp"
 
 namespace ariel {
     class Tile {
@@ -22,12 +23,14 @@ namespace ariel {
         void addEdge(Edge* edge);
         std::string toString() const;
         std::vector<Vertex*>& getVertices();
+        void addPlayer(Player* player, Player::City city);
+        std::vector<std::pair<Player*, Player::City>>& getPlayers();
 
     private:
         int id;
         Type type;
         int number;
-        std::vector<std::pair<Player*, Player::city>> players;
+        std::vector<std::pair<Player*, Player::City>> players;
         std::vector<Vertex*> vertices;
         std::vector<Edge*> edges;
     };

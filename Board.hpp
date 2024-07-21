@@ -7,6 +7,8 @@
 #include "Vertex.hpp"
 
 namespace ariel {
+    class Player; // Forward declaration
+
     class Board {
     public:
         Board();
@@ -15,6 +17,8 @@ namespace ariel {
         Tile& getTile(int id);
         Edge& getEdge(int id);
         Vertex& getVertex(int id);
+        void addTile(const Tile& tile);
+        std::string toString() const;
 
     private:
         std::vector<Tile> tiles;

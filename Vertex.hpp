@@ -4,6 +4,8 @@
 #include <vector>
 #include <string>
 #include "Resource.hpp"
+#include "Edge.hpp"
+#include "Tile.hpp"
 
 namespace ariel {
     class Vertex {

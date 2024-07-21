@@ -4,6 +4,9 @@
 #include "Board.hpp"
 #include "Player.hpp"
 #include <vector>
+#include <algorithm>
+#include <random>
+#include <ctime>
 
 namespace ariel {
     class Game {
@@ -22,8 +25,9 @@ namespace ariel {
         bool isGameOver() const;
         Player getWinner() const;
 
-        void printWinner() const; // הוספת הפונקציה printWinner
-        Board getBoard() const; // הוספת הפונקציה getBoard
+        void printWinner() const;
+        Board getBoard() const;
+        void ChooseStartingPlayer(); // הוספת הפונקציה ChooseStartingPlayer
 
     private:
         Board board;

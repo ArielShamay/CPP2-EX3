@@ -5,7 +5,7 @@
 #include <vector>
 #include <string>
 #include "Vertex.hpp"
-
+#include "Player.hpp"
 namespace ariel {
     class Edge {
     public:
