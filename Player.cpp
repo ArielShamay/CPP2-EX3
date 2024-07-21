@@ -1,50 +1,38 @@
-#include "Player.hpp"
+#ifndef PLAYER_HPP
+#define PLAYER_HPP
+
+#include <string>
+#include <map>
+#include <vector>
+#include "Resource.hpp"
+#include "DevelopmentCard.hpp"
 
 namespace ariel {
-    Player::Player(const std::string& name) : name(name), victoryPoints(0) {}
+    class Player {
+    public:
+        Player(const std::string& name);
 
-    const std::string& Player::getName() const {
-        return name;
-    }
+        const std::string& getName() const;
+        void addResource(Resource::Type resource, int amount);
+        void removeResource(Resource::Type resource, int amount);
+        int getResourceCount(Resource::Type resource) const;
 
-    void Player::addResource(Resource::Type resource, int amount) {
-        resources[resource] += amount;
-    }
+        void addDevelopmentCard(const DevelopmentCard& card);
+        const std::vector<DevelopmentCard>& getDevelopmentCards() const;
 
-    void Player::removeResource(Resource::Type resource, int amount) {
-        resources[resource] -= amount;
-    }
+        void buildSettlement();
+        void buildCity();
+        void buildRoad();
 
-    int Player::getResourceCount(Resource::Type resource) const {
-        auto it = resources.find(resource);
-        return it != resources.end() ? it->second : 0;
-    }
+        int getVictoryPoints() const;
+        void addVictoryPoints(int points);
 
-    void Player::addDevelopmentCard(const DevelopmentCard& card) {
-        developmentCards.push_back(card);
-    }
-
-    const std::vector<DevelopmentCard>& Player::getDevelopmentCards() const {
-        return developmentCards;
-    }
-
-    void Player::buildSettlement() {
-        // Implementation here
-    }
-
-    void Player::buildCity() {
-        // Implementation here
-    }
-
-    void Player::buildRoad() {
-        // Implementation here
-    }
-
-    int Player::getVictoryPoints() const {
-        return victoryPoints;
-    }
-
-    void Player::addVictoryPoints(int points) {
-        victoryPoints += points;
-    }
+    private:
+        std::string name;
+        std::map<Resource::Type, int> resources;
+        std::vector<DevelopmentCard> developmentCards;
+        int victoryPoints;
+    };
 } // namespace ariel
+
+#endif // PLAYER_HPP
