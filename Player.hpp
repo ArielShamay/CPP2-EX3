@@ -12,7 +12,7 @@
 namespace ariel {
     class Player {
     public:
-        enum class City { NONE, SETTLEMENT, CITY };
+        enum class CityType { NONE, SETTLEMENT, CITY }; // שינוי השם ל-CityType במקום city
 
         Player(const std::string& name);
 

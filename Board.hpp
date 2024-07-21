@@ -2,7 +2,7 @@
 #define BOARD_HPP
 
 #include <vector>
-#include "Tile.hpp"
+#include "Tile.hpp" // Ensure Tile.hpp is included here
 #include "Edge.hpp"
 #include "Vertex.hpp"
 

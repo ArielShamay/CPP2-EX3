@@ -1,4 +1,3 @@
-// Edge.cpp
 #include "Edge.hpp"
 
 namespace ariel {
@@ -33,11 +32,10 @@ namespace ariel {
     }
 
     void Edge::addVertex(Vertex* v) {
-        vertexes.push_back(v);
+        vertices.push_back(v);
     }
 
-    std::vector<Vertex*>& Edge::getVertexes() {
-        return vertexes;
+    std::vector<Vertex*>& Edge::getVertices() {
+        return vertices; // Change the function implementation to return vertices
     }
 } // namespace ariel
-

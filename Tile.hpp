@@ -23,14 +23,13 @@ namespace ariel {
         void addEdge(Edge* edge);
         std::string toString() const;
         std::vector<Vertex*>& getVertices();
-        void addPlayer(Player* player, Player::City city);
-        std::vector<std::pair<Player*, Player::City>>& getPlayers();
+        std::vector<Edge*>& getEdges();
 
     private:
         int id;
         Type type;
         int number;
-        std::vector<std::pair<Player*, Player::City>> players;
+        std::vector<std::pair<Player*, Player::CityType>> players;
         std::vector<Vertex*> vertices;
         std::vector<Edge*> edges;
     };

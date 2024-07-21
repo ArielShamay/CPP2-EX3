@@ -1,7 +1,7 @@
 #include "Tile.hpp"
 
 namespace ariel {
-    Tile::Tile(Type type, int id) : type(type), id(id), number(0) {} // עדכון בנאי
+    Tile::Tile(Type type, int id) : type(type), id(id), number(0) {}
 
     Tile::Type Tile::getType() const {
         return type;
@@ -51,5 +51,9 @@ namespace ariel {
 
     std::vector<Vertex*>& Tile::getVertices() {
         return vertices;
+    }
+
+    std::vector<Edge*>& Tile::getEdges() {
+        return edges;
     }
 } // namespace ariel
