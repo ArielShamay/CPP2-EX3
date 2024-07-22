@@ -6,9 +6,9 @@
 #include <vector>
 #include "Resource.hpp"
 #include "DevelopmentCard.hpp"
-#include "Board.hpp"
 
 namespace ariel {
+    class Board; // Forward declaration
     class Tile; // Forward declaration
 
     class Player {

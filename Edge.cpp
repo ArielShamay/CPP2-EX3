@@ -36,6 +36,6 @@ namespace ariel {
     }
 
     std::vector<Vertex*>& Edge::getVertices() {
-        return vertices; // Change the function implementation to return vertices
+        return vertices;
     }
 } // namespace ariel

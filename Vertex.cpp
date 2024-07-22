@@ -27,7 +27,7 @@ namespace ariel {
         playerId = id;
     }
 
-    std::string Vertex::getPlayerId() const {
+   std::string Vertex::getPlayerId() const {
         return playerId;
     }
 } // namespace ariel

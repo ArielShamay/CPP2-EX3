@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -I/home/ariel/CPP2-EX3 -I/home/ari
 LDFLAGS =
 
 SRCS = Test.cpp Tile.cpp Edge.cpp Vertex.cpp Player.cpp DevelopmentCard.cpp Game.cpp Board.cpp
-HEADERS = Tile.hpp Edge.hpp Vertex.hpp Resource.hpp Player.hpp DevelopmentCard.hpp Game.hpp Board.hpp doctest/doctest.h
+HEADERS = Tile.hpp Edge.hpp Vertex.hpp Resource.hpp Player.hpp DevelopmentCard.hpp Game.hpp Board.hpp doctest/doctest.h 
 
 OBJS = $(SRCS:.cpp=.o)
 

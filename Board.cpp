@@ -1,9 +1,10 @@
-#include "Board.hpp"
-#include "Edge.hpp"
-#include "Vertex.hpp"
-#include "Tile.hpp"
 #include <stdexcept>
 #include <sstream>
+
+#include "Board.hpp"
+#include "Tile.hpp"
+#include "Player.hpp"
+
 
 namespace ariel {
     Board::Board() {
@@ -22,6 +23,10 @@ namespace ariel {
         }
         throw std::out_of_range("Tile with given ID not found");
     }
+    std::vector<Tile>& Board::getTiles() {
+        return tiles;
+    }
+
 
     Edge& Board::getEdge(int id) {
         for (auto& edge : edges) {

@@ -1,5 +1,5 @@
 #include "Tile.hpp"
-#include "Player.hpp" // Include the full definition of Player
+#include "Player.hpp"
 
 namespace ariel {
     Tile::Tile(Type type, int id) : id(id), type(type), number(0) {}
@@ -34,6 +34,10 @@ namespace ariel {
     void Tile::addEdge(Edge* edge) {
         edges.push_back(edge);
     }
+      void Tile::addSettlement(Player* player) {
+        players.push_back(std::make_pair(player, Player::CityType::SETTLEMENT));
+    }
+
 
     std::string Tile::toString() const {
         std::string s;
@@ -54,7 +58,7 @@ namespace ariel {
         return vertices;
     }
 
-    std::vector<Edge*>& Tile::getEdges() {
+    const std::vector<Edge*>& Tile::getEdges() const { // הפונקציה כ-const
         return edges;
     }
 

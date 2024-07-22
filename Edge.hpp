@@ -24,6 +24,7 @@ namespace ariel {
         std::string getPlayerId() const;
         void addVertex(Vertex* v);
         std::vector<Vertex*>& getVertices(); // שינוי השם ל-getVertices במקום getVertexes
+        
 
     private:
         int id;

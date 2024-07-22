@@ -10,10 +10,30 @@ namespace ariel {
 
     void Game::start() {
         // התחלת המשחק
+        board.initialize(); // אתחול הלוח
+        ChooseStartingPlayer(); // בחירת השחקן המתחיל
+        while (!isGameOver()) {
+            playTurn(players[currentPlayerIndex]);
+        }
+        printWinner(); // הדפסת המנצח בסוף המשחק
     }
 
     void Game::playTurn(Player& player) {
-        // ביצוע תור השחקן
+        rollDice(player); // זריקת קוביות
+
+        // פעולות נוספות בתור של השחקן
+        buildSettlement(player);
+        buildCity(player);
+        buildRoad(player);
+        buyDevelopmentCard(player);
+
+        // סיום התור
+        endTurn(player);
+
+        // בדיקה אם המשחק נגמר
+        if (player.getVictoryPoints() >= 10) {
+            gameOver = true;
+        }
     }
 
     void Game::rollDice(Player& player) {
@@ -24,18 +44,26 @@ namespace ariel {
 
     void Game::buildSettlement(Player& player) {
         // בניית יישוב
+        std::vector<std::string> places = {"Forest", "Hills", "Fields"};
+        std::vector<int> placesNum = {5, 6, 3};
+        player.placeSettlement(places, placesNum, board);
     }
 
     void Game::buildCity(Player& player) {
         // בניית עיר
+        std::cout << player.getName() << " builds a city." << std::endl;
     }
 
     void Game::buildRoad(Player& player) {
         // בניית דרך
+        std::vector<std::string> places = {"Forest", "Hills"};
+        std::vector<int> placesNum = {5, 6};
+        player.placeRoad(places, placesNum, board);
     }
 
     void Game::buyDevelopmentCard(Player& player) {
         // קניית קלף פיתוח
+        std::cout << player.getName() << " buys a development card." << std::endl;
     }
 
     void Game::endTurn(Player& player) {

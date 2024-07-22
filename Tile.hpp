@@ -6,6 +6,7 @@
 #include "Resource.hpp"
 #include "Edge.hpp"
 #include "Vertex.hpp"
+#include "Player.hpp"
 
 namespace ariel {
     class Player; // Forward declaration
@@ -22,10 +23,12 @@ namespace ariel {
         void setNumber(int number);
         void addVertex(Vertex* v);
         void addEdge(Edge* edge);
+        void addSettlement(Player* player); 
         std::string toString() const;
         std::vector<Vertex*>& getVertices();
-        std::vector<Edge*>& getEdges();
-        int getId() const;
+        const std::vector<Edge*>& getEdges() const; // הפונקציה כ-const
+        int getId() const; // הוספת הפונקציה getId
+
 
     private:
         int id;
