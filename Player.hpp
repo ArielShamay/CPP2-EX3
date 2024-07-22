@@ -7,12 +7,13 @@
 #include "Resource.hpp"
 #include "DevelopmentCard.hpp"
 #include "Board.hpp"
-#include "Tile.hpp"
 
 namespace ariel {
+    class Tile; // Forward declaration
+
     class Player {
     public:
-        enum class CityType { NONE, SETTLEMENT, CITY }; // שינוי השם ל-CityType במקום city
+        enum class CityType { NONE, SETTLEMENT, CITY };
 
         Player(const std::string& name);
 

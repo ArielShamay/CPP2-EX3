@@ -1,7 +1,8 @@
 #include "Tile.hpp"
+#include "Player.hpp" // Include the full definition of Player
 
 namespace ariel {
-    Tile::Tile(Type type, int id) : type(type), id(id), number(0) {}
+    Tile::Tile(Type type, int id) : id(id), type(type), number(0) {}
 
     Tile::Type Tile::getType() const {
         return type;
@@ -56,4 +57,8 @@ namespace ariel {
     std::vector<Edge*>& Tile::getEdges() {
         return edges;
     }
-} // namespace ariel
+
+    int Tile::getId() const {
+        return id;
+    }
+}

@@ -4,7 +4,7 @@
 #include <vector>
 #include <string>
 #include "Resource.hpp"
-#include "Edge.hpp"
+#include "Edge.hpp" // Include Edge header here
 #include "Tile.hpp"
 
 namespace ariel {

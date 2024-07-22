@@ -5,10 +5,11 @@
 #include <string>
 #include "Resource.hpp"
 #include "Edge.hpp"
-#include "Player.hpp"
 #include "Vertex.hpp"
 
 namespace ariel {
+    class Player; // Forward declaration
+
     class Tile {
     public:
         enum Type { FOREST, HILL, PASTURE, FIELD, MOUNTAIN, DESERT };
@@ -24,6 +25,7 @@ namespace ariel {
         std::string toString() const;
         std::vector<Vertex*>& getVertices();
         std::vector<Edge*>& getEdges();
+        int getId() const;
 
     private:
         int id;

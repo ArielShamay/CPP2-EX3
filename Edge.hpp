@@ -3,7 +3,11 @@
 
 #include <vector>
 #include <string>
-#include "Vertex.hpp" // Ensure Vertex is included
+
+// Forward declaration of Vertex class
+namespace ariel {
+    class Vertex;
+}
 
 namespace ariel {
     class Edge {
@@ -14,22 +18,19 @@ namespace ariel {
 
         int getId() const;
         int getSubId() const;
-
         void addNeighbor(Edge* e);
         std::vector<Edge*>& getNeighbors();
-
         void setPlayerId(const std::string& id);
         std::string getPlayerId() const;
-
         void addVertex(Vertex* v);
-        std::vector<Vertex*>& getVertices(); // Change the function name to getVertices
+        std::vector<Vertex*>& getVertices(); // שינוי השם ל-getVertices במקום getVertexes
 
     private:
         int id;
         int sub_id;
         std::string player_id;
         std::vector<Edge*> neighbors;
-        std::vector<Vertex*> vertices; // Change the member name to vertices
+        std::vector<Vertex*> vertices; // שינוי השם ל-vertices במקום vertexes
     };
 } // namespace ariel
 
