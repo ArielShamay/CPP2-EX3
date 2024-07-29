@@ -11,10 +11,7 @@
 
 namespace ariel {
     class Board {
-    int positionOfRobber; // Declare positionOfRobber first
-    const Player& p1;
-    const Player& p2;
-    const Player& p3;
+   
      public:
         Board(const Player& p1, const Player& p2, const Player& p3);
 
@@ -45,14 +42,14 @@ namespace ariel {
         bool canBuildRoad(int edge, Player& player);
 
     private:
-        std::map<int, Tile> tileMap;
-        std::vector<Edge> edges;
-        std::vector<Vertex> vertices;
-        int positionOfRobber;
-        int playerTurn;
         const Player& p1;
         const Player& p2;
         const Player& p3;
+        int positionOfRobber;
+        int playerTurn;
+        std::map<int, Tile> tileMap;
+        std::vector<Edge> edges;
+        std::vector<Vertex> vertices;
     };
 } // namespace ariel
 

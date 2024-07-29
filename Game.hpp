@@ -11,8 +11,7 @@
 
 namespace ariel {
     class Game {
-    Board board; // Declare board first
-    bool gameOver; 
+     
     public:
         Game(const std::vector<Player>& players);
 
@@ -34,10 +33,10 @@ namespace ariel {
         void ChooseStartingPlayer();
 
     private:
-        Board board;
         std::vector<Player> players;
         int currentPlayerIndex;
         bool gameOver;
+        Board board;
         DevelopmentCards devCards;
     };
 } // namespace ariel
