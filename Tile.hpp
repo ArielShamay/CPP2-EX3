@@ -6,10 +6,11 @@
 #include "Resource.hpp"
 #include "Edge.hpp"
 #include "Vertex.hpp"
-#include "Player.hpp"
 
 namespace ariel {
     class Player; // Forward declaration
+    class Vertex; // Forward declaration
+    class Edge; // Forward declaration
 
     class Tile {
     public:
@@ -21,22 +22,19 @@ namespace ariel {
         int getNumber() const;
         Resource getResource() const;
         void setNumber(int number);
-        void addVertex(Vertex* v);
-        void addEdge(Edge* edge);
-        void addSettlement(Player* player); 
+        void addVertex(int v1, int v2, int v3, int v4, int v5, int v6);
+        std::vector<int> getVertices() const;
+        void addEdge(int edge);
+        std::vector<int> getEdges() const;
+        int getId() const;
         std::string toString() const;
-        std::vector<Vertex*>& getVertices();
-        const std::vector<Edge*>& getEdges() const; // הפונקציה כ-const
-        int getId() const; // הוספת הפונקציה getId
-
 
     private:
         int id;
         Type type;
         int number;
-        std::vector<std::pair<Player*, Player::CityType>> players;
-        std::vector<Vertex*> vertices;
-        std::vector<Edge*> edges;
+        std::vector<int> vertices;
+        std::vector<int> edges;
     };
 } // namespace ariel
 

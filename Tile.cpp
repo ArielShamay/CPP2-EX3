@@ -2,7 +2,10 @@
 #include "Player.hpp"
 
 namespace ariel {
-    Tile::Tile(Type type, int id) : id(id), type(type), number(0) {}
+    Tile::Tile(Type type, int id) : id(id), type(type), number(0) {
+        vertices.resize(6);
+        edges.resize(6);
+    }
 
     Tile::Type Tile::getType() const {
         return type;
@@ -27,17 +30,30 @@ namespace ariel {
         this->number = number;
     }
 
-    void Tile::addVertex(Vertex* v) {
-        vertices.push_back(v);
+    void Tile::addVertex(int v1, int v2, int v3, int v4, int v5, int v6) {
+        vertices[0] = v1;
+        vertices[1] = v2;
+        vertices[2] = v3;
+        vertices[3] = v4;
+        vertices[4] = v5;
+        vertices[5] = v6;
     }
 
-    void Tile::addEdge(Edge* edge) {
+    std::vector<int> Tile::getVertices() const {
+        return vertices;
+    }
+
+    void Tile::addEdge(int edge) {
         edges.push_back(edge);
     }
-      void Tile::addSettlement(Player* player) {
-        players.push_back(std::make_pair(player, Player::CityType::SETTLEMENT));
+
+    std::vector<int> Tile::getEdges() const {
+        return edges;
     }
 
+    int Tile::getId() const {
+        return id;
+    }
 
     std::string Tile::toString() const {
         std::string s;
@@ -52,17 +68,5 @@ namespace ariel {
         if (s == "DESERT") return s;
         s += " " + std::to_string(number);
         return s;
-    }
-
-    std::vector<Vertex*>& Tile::getVertices() {
-        return vertices;
-    }
-
-    const std::vector<Edge*>& Tile::getEdges() const { // הפונקציה כ-const
-        return edges;
-    }
-
-    int Tile::getId() const {
-        return id;
     }
 }

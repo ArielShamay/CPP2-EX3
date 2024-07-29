@@ -4,12 +4,9 @@
 #include <vector>
 #include <string>
 
-// Forward declaration of Vertex class
 namespace ariel {
-    class Vertex;
-}
+    class Vertex; // Forward declaration
 
-namespace ariel {
     class Edge {
     public:
         Edge(int id, int sub_id);
@@ -23,15 +20,14 @@ namespace ariel {
         void setPlayerId(const std::string& id);
         std::string getPlayerId() const;
         void addVertex(Vertex* v);
-        std::vector<Vertex*>& getVertices(); // שינוי השם ל-getVertices במקום getVertexes
-        
+        std::vector<Vertex*>& getVertices();
 
     private:
         int id;
         int sub_id;
         std::string player_id;
         std::vector<Edge*> neighbors;
-        std::vector<Vertex*> vertices; // שינוי השם ל-vertices במקום vertexes
+        std::vector<Vertex*> vertices;
     };
 } // namespace ariel
 

@@ -38,4 +38,4 @@ namespace ariel {
     std::vector<Vertex*>& Edge::getVertices() {
         return vertices;
     }
-} // namespace ariel
+}

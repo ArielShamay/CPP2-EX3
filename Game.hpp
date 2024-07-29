@@ -3,6 +3,7 @@
 
 #include "Board.hpp"
 #include "Player.hpp"
+#include "DevelopmentCard.hpp"
 #include <vector>
 #include <algorithm>
 #include <random>
@@ -10,6 +11,8 @@
 
 namespace ariel {
     class Game {
+    Board board; // Declare board first
+    bool gameOver; 
     public:
         Game(const std::vector<Player>& players);
 
@@ -26,14 +29,16 @@ namespace ariel {
         Player getWinner() const;
 
         void printWinner() const;
-        Board getBoard() const;
-        void ChooseStartingPlayer(); // הוספת הפונקציה ChooseStartingPlayer
+        Board& getBoard();  // שינוי כדי להחזיר reference
+        DevelopmentCards& getDevelopmentCards(); 
+        void ChooseStartingPlayer();
 
     private:
         Board board;
         std::vector<Player> players;
         int currentPlayerIndex;
         bool gameOver;
+        DevelopmentCards devCards;
     };
 } // namespace ariel
 

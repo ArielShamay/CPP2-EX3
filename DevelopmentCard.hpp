@@ -1,13 +1,17 @@
-#ifndef DEVELOPMENT_CARD_HPP
-#define DEVELOPMENT_CARD_HPP
+#ifndef DEVELOPMENTCARD_HPP
+#define DEVELOPMENTCARD_HPP
 
 #include <string>
+#include <vector>
+#include <cstdlib> // for std::rand
 
 namespace ariel {
+
     class DevelopmentCard {
     public:
         enum class Type { KNIGHT, VICTORY_POINT, ROAD_BUILDING, YEAR_OF_PLENTY, MONOPOLY };
 
+        DevelopmentCard(); // Default constructor
         DevelopmentCard(Type type);
 
         Type getType() const;
@@ -16,6 +20,18 @@ namespace ariel {
     private:
         Type type;
     };
+
+    class DevelopmentCards {
+    public:
+        DevelopmentCards();
+
+        DevelopmentCard drawCard();
+        void addCard(const DevelopmentCard& card);
+
+    private:
+        std::vector<DevelopmentCard> deck;
+    };
+
 } // namespace ariel
 
-#endif // DEVELOPMENT_CARD_HPP
+#endif // DEVELOPMENTCARD_HPP

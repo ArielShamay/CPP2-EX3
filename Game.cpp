@@ -4,12 +4,13 @@
 #include <ctime> // עבור הפונקציה time
 
 namespace ariel {
-    Game::Game(const std::vector<Player>& players) : players(players), currentPlayerIndex(0), gameOver(false) {
+    Game::Game(const std::vector<Player>& players)
+        : players(players), currentPlayerIndex(0), gameOver(false),
+          board(players[0], players[1], players[2]), devCards() {
         std::srand(std::time(0)); // אתחול ה-random seed
     }
 
     void Game::start() {
-        // התחלת המשחק
         board.initialize(); // אתחול הלוח
         ChooseStartingPlayer(); // בחירת השחקן המתחיל
         while (!isGameOver()) {
@@ -37,38 +38,28 @@ namespace ariel {
     }
 
     void Game::rollDice(Player& player) {
-        // הטלת הקוביות
-        int diceRoll = (std::rand() % 6 + 1) + (std::rand() % 6 + 1); // הטלת שתי קוביות
-        std::cout << player.getName() << " rolled a " << diceRoll << std::endl;
+        player.rollDice(board);
     }
 
     void Game::buildSettlement(Player& player) {
-        // בניית יישוב
-        std::vector<std::string> places = {"Forest", "Hills", "Fields"};
-        std::vector<int> placesNum = {5, 6, 3};
-        player.placeSettlement(places, placesNum, board);
+        player.placeSettlement(5, board); // דוגמה למזהה של קודקוד
     }
 
     void Game::buildCity(Player& player) {
-        // בניית עיר
         std::cout << player.getName() << " builds a city." << std::endl;
+        // כאן תוסיף את הלוגיקה לבניית עיר אם יש צורך
     }
 
     void Game::buildRoad(Player& player) {
-        // בניית דרך
-        std::vector<std::string> places = {"Forest", "Hills"};
-        std::vector<int> placesNum = {5, 6};
-        player.placeRoad(places, placesNum, board);
+        player.placeRoad(1, board); // דוגמה למזהה של קצה
     }
 
     void Game::buyDevelopmentCard(Player& player) {
-        // קניית קלף פיתוח
-        std::cout << player.getName() << " buys a development card." << std::endl;
+        player.buyDevelopmentCard(devCards);
     }
 
     void Game::endTurn(Player& player) {
-        // סיום תור השחקן
-        std::cout << player.getName() << " ends their turn" << std::endl;
+        player.endTurn(board);
         currentPlayerIndex = (currentPlayerIndex + 1) % players.size();
     }
 
@@ -77,14 +68,12 @@ namespace ariel {
     }
 
     Player Game::getWinner() const {
-        // חזרה על השחקן המנצח
         for (const Player& player : players) {
             if (player.getVictoryPoints() >= 10) {
                 return player;
             }
         }
-        // במקרה שאין מנצח, נחזיר את השחקן הראשון
-        return players[0];
+        return players[0]; // במקרה שאין מנצח, נחזיר את השחקן הראשון
     }
 
     void Game::printWinner() const {
@@ -95,8 +84,12 @@ namespace ariel {
         }
     }
 
-    Board Game::getBoard() const {
+    Board& Game::getBoard() {
         return board;
+    }
+
+    DevelopmentCards& Game::getDevelopmentCards() {
+        return devCards;
     }
 
     void Game::ChooseStartingPlayer() {

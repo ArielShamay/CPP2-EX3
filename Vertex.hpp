@@ -1,32 +1,29 @@
 #ifndef VERTEX_HPP
 #define VERTEX_HPP
 
-#include <vector>
 #include <string>
-#include "Resource.hpp"
-#include "Edge.hpp" // Include Edge header here
-#include "Tile.hpp"
+#include <vector>
+#include "Player.hpp"
 
 namespace ariel {
     class Vertex {
     public:
-        enum class city { NONE, SETTLEMENT, CITY };
+        enum class CityType { NONE, SETTLEMENT, CITY };
 
         Vertex(int id);
 
         int getId() const;
-        void addNeighbor(Vertex* v);
-        std::vector<Vertex*>& getNeighbors();
-        void setCityType(city type);
-        city getCityType() const;
-        void setPlayerId(const std::string& id);
+        CityType getCityType() const;
+        void setCityType(CityType cityType);
         std::string getPlayerId() const;
+        void setPlayerId(const std::string& playerId);
+        const std::vector<int>& getEdges() const; // הוספת הפונקציה הזאת
 
     private:
         int id;
-        city cityType;
-        std::vector<Vertex*> neighbors;
+        CityType cityType;
         std::string playerId;
+        std::vector<int> edges; // רשימת הצלעות המקושרות לקודקוד הזה
     };
 } // namespace ariel
 

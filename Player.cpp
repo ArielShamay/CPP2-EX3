@@ -6,10 +6,13 @@
 #include <unordered_set>
 
 namespace ariel {
-    Player::Player(const std::string& name) : name(name), victoryPoints(0) {}
+    Player::Player(const std::string& name) : name(name), victoryPoints(0), alreadyRolled(false) {}
 
     const std::string& Player::getName() const {
         return name;
+    }
+    int Player::getId() const { // הוספת הפונקציה getId
+        return id;
     }
 
     void Player::addResource(Resource resource, int amount) {
@@ -34,15 +37,25 @@ namespace ariel {
     }
 
     void Player::buildSettlement() {
-        // Implementation here
+        addResource(Resource::WOOD, -1);
+        addResource(Resource::BRICK, -1);
+        addResource(Resource::WOOL, -1);
+        addResource(Resource::GRAIN, -1);
+        addVictoryPoints(1);
+        std::cout << name << " builds a settlement" << std::endl;
     }
 
     void Player::buildCity() {
-        // Implementation here
+        addResource(Resource::ORE, -3);
+        addResource(Resource::GRAIN, -2);
+        addVictoryPoints(1);
+        std::cout << name << " builds a city" << std::endl;
     }
 
     void Player::buildRoad() {
-        // Implementation here
+        addResource(Resource::WOOD, -1);
+        addResource(Resource::BRICK, -1);
+        std::cout << name << " builds a road" << std::endl;
     }
 
     int Player::getVictoryPoints() const {
@@ -52,79 +65,117 @@ namespace ariel {
     void Player::addVictoryPoints(int points) {
         victoryPoints += points;
     }
-
-    void Player::placeSettlement(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board) {
-    // Assuming places[0] and placesNum[0] determine the location on the board
-    Tile& tile = board.getTile(placesNum[0]);
-
-    // Check if the location is valid for placing a settlement
-    bool validLocation = true; // Add logic to determine if the location is valid
-
-    if (validLocation) {
-        // Assuming Tile has a method to add a settlement associated with the player
-        tile.addSettlement(this);
-
-        // Update player's resources and victory points if needed
-        this->buildSettlement();
-
-        std::cout << name << " places a settlement at " << places[0] << " with number " << placesNum[0] << std::endl;
-    } else {
-        std::cout << "Invalid location for settlement!" << std::endl;
+ void Player::placeSettlement(int vertex, Board& board) {
+        if (board.canBuildSettlement(vertex, *this)) {
+            board.buildSettlement(vertex, *this);
+        } else {
+            std::cout << "Cannot build settlement at vertex " << vertex << std::endl;
+        }
     }
-}
-    void Player::placeRoad(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board) {
-    if (places.empty() || placesNum.empty()) {
-        std::cerr << "Error: places or placesNum is empty." << std::endl;
+
+    void Player::placeRoad(int edge, Board& board) {
+        if (board.canBuildRoad(edge, *this)) {
+            board.buildRoad(edge, *this);
+        } else {
+            std::cout << "Cannot build road at edge " << edge << std::endl;
+        }
+    }
+    void Player::rollDice(Board& board) {
+    if (board.getPlayerTurn() != getId()) {
+        std::cout << "It's not your turn" << std::endl;
+        return;
+    }
+    if (alreadyRolled) {
+        std::cout << "You have already rolled the dice this turn" << std::endl;
         return;
     }
 
-    std::unordered_set<std::string> placesSet(places.begin(), places.end());
-    bool roadPlaced = false;
-
-    for (const auto& tile : board.getTiles()) {
-        if (placesSet.find(tile.toString()) != placesSet.end()) {
-            for (auto& edge : tile.getEdges()) {
-                for (auto& vertex : edge->getVertices()) {
-                    if (vertex->getPlayerId() == name) {
-                        // Implement the logic for placing a road
-                        // Example: edge->setHasRoad(true);
-                        // Note: You'll need to add a method in your Edge class to mark the road as placed.
-                        std::cout << name << " places a road at " << tile.toString() << std::endl;
-                        roadPlaced = true;
-                        break; // Assuming one road placement per call, break out of the loops.
-                    }
-                }
-                if (roadPlaced) break;
-            }
-        }
-        if (roadPlaced) break;
-    }
-
-    if (!roadPlaced) {
-        std::cerr << "Error: Unable to place a road for " << name << std::endl;
-    }
+    int diceRoll = (std::rand() % 6 + 1) + (std::rand() % 6 + 1); // Roll two dice
+    std::cout << name << " rolled a " << diceRoll << std::endl;
+    board.shareResources(diceRoll);
+    alreadyRolled = true;
 }
-     void Player::rollDice() {
-        // Implementation here
-        std::cout << name << " rolls the dice" << std::endl;
-    }
 
-    void Player::endTurn() {
-        // Implementation here
-        std::cout << name << " ends their turn" << std::endl;
+void Player::endTurn(Board& board) {
+    if (board.getPlayerTurn() != getId()) {
+        std::cout << "It's not your turn" << std::endl;
+        return;
     }
-
+    std::cout << name << " ends their turn" << std::endl;
+    if (!getAlreadyRolled()) {
+        rollDice(board);
+    }
+    board.nextTurn();
+}
     void Player::trade(Player& other, const std::string& giveResource, const std::string& getResource, int giveAmount, int getAmount) {
-        // Implementation here
-        std::cout << name << " trades " << giveAmount << " " << giveResource << " with " << other.getName() << " for " << getAmount << " " << getResource << std::endl;
+        Resource give = Resource::NONE;
+        Resource get = Resource::NONE;
+
+        if (giveResource == "WOOD") give = Resource::WOOD;
+        else if (giveResource == "BRICK") give = Resource::BRICK;
+        else if (giveResource == "WOOL") give = Resource::WOOL;
+        else if (giveResource == "GRAIN") give = Resource::GRAIN;
+        else if (giveResource == "ORE") give = Resource::ORE;
+
+        if (getResource == "WOOD") get = Resource::WOOD;
+        else if (getResource == "BRICK") get = Resource::BRICK;
+        else if (getResource == "WOOL") get = Resource::WOOL;
+        else if (getResource == "GRAIN") get = Resource::GRAIN;
+        else if (getResource == "ORE") get = Resource::ORE;
+
+        if (give != Resource::NONE && get != Resource::NONE && getResourceCount(give) >= giveAmount) {
+            removeResource(give, giveAmount);
+            addResource(get, getAmount);
+            other.removeResource(get, getAmount);
+            other.addResource(give, giveAmount);
+            std::cout << name << " trades " << giveAmount << " " << giveResource << " with " << other.getName() << " for " << getAmount << " " << getResource << std::endl;
+        } else {
+            std::cout << "Invalid trade!" << std::endl;
+        }
     }
 
-    void Player::buyDevelopmentCard() {
-        // Implementation here
-        std::cout << name << " buys a development card" << std::endl;
+    void Player::buyDevelopmentCard(DevelopmentCards& devCards) {
+    if (getResourceCount(Resource::GRAIN) < 1 || getResourceCount(Resource::WOOL) < 1 || getResourceCount(Resource::ORE) < 1) {
+        std::cout << "Not enough resources to buy a development card!" << std::endl;
+        return;
     }
+    removeResource(Resource::GRAIN, 1);
+    removeResource(Resource::WOOL, 1);
+    removeResource(Resource::ORE, 1);
+
+    DevelopmentCard card = devCards.drawCard();
+    addDevelopmentCard(card);
+
+    std::cout << name << " buys a development card" << std::endl;
+}
+
 
     void Player::printPoints() const {
         std::cout << name << " has " << victoryPoints << " points" << std::endl;
+    }
+
+    void Player::setAlreadyRolled(bool rolled) {
+        alreadyRolled = rolled;
+    }
+
+    bool Player::getAlreadyRolled() const {
+        return alreadyRolled;
+    }
+
+    void Player::reduceHalfResources() {
+        std::cout << "Reducing half resources for player " << name << std::endl;
+        int totalResources = 0;
+        for (const auto& res : resources) {
+            totalResources += res.second;
+        }
+        if (totalResources > 7) {
+            int resourcesToRemove = totalResources / 2;
+            for (auto& res : resources) {
+                int removeAmount = std::min(res.second, resourcesToRemove);
+                res.second -= removeAmount;
+                resourcesToRemove -= removeAmount;
+                if (resourcesToRemove <= 0) break;
+            }
+        }
     }
 } // namespace ariel

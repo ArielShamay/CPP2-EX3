@@ -8,16 +8,16 @@
 #include "DevelopmentCard.hpp"
 
 namespace ariel {
+    
+    class Tile;  // Forward declaration
     class Board; // Forward declaration
-    class Tile; // Forward declaration
 
     class Player {
     public:
-        enum class CityType { NONE, SETTLEMENT, CITY };
-
         Player(const std::string& name);
 
         const std::string& getName() const;
+        int getId() const;
         void addResource(Resource resource, int amount);
         void removeResource(Resource resource, int amount);
         int getResourceCount(Resource resource) const;
@@ -32,19 +32,25 @@ namespace ariel {
         int getVictoryPoints() const;
         void addVictoryPoints(int points);
 
-        void placeSettlement(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
-        void placeRoad(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
-        void rollDice();
-        void endTurn();
+        void placeSettlement(int vertex, Board& board);
+        void placeRoad(int edge, Board& board);
+        void rollDice(Board& board);
+        void endTurn(Board& board);
         void trade(Player& other, const std::string& giveResource, const std::string& getResource, int giveAmount, int getAmount);
-        void buyDevelopmentCard();
+        void buyDevelopmentCard(DevelopmentCards& devCards); 
         void printPoints() const;
+
+        void setAlreadyRolled(bool rolled);
+        bool getAlreadyRolled() const;
+        void reduceHalfResources();
 
     private:
         std::string name;
+        int id;
         std::map<Resource, int> resources;
         std::vector<DevelopmentCard> developmentCards;
         int victoryPoints;
+        bool alreadyRolled;
     };
 } // namespace ariel
 
