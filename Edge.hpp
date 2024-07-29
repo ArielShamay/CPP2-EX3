@@ -20,7 +20,7 @@ namespace ariel {
         void setPlayerId(const std::string& id);
         std::string getPlayerId() const;
         void addVertex(Vertex* v);
-        std::vector<Vertex*>& getVertices();
+        std::vector<Vertex*> getVertices() const;
 
     private:
         int id;

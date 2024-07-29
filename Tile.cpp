@@ -2,6 +2,12 @@
 #include "Player.hpp"
 
 namespace ariel {
+
+    Tile::Tile() : id(0), type(DESERT), number(0) { // קונסטרקטור ברירת מחדל
+        vertices.resize(6);
+        edges.resize(6);
+    }
+
     Tile::Tile(Type type, int id) : id(id), type(type), number(0) {
         vertices.resize(6);
         edges.resize(6);
@@ -69,8 +75,8 @@ namespace ariel {
         s += " " + std::to_string(number);
         return s;
     }
-    void Tile::setVertices(const std::vector<int>& vertices) {
-    this->vertices = vertices;
-}
 
+    void Tile::setVertices(const std::vector<int>& vertices) {
+        this->vertices = vertices;
+    }
 }

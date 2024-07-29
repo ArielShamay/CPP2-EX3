@@ -40,6 +40,7 @@ namespace ariel {
         void finishGame();
         bool canBuildSettlement(int vertex, Player& player);
         bool canBuildRoad(int edge, Player& player);
+        void printBoard() const;
 
     private:
         const Player& p1;

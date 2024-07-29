@@ -7,36 +7,55 @@
 #include <unordered_set>
 #include <sstream>
 #include <stdexcept>
+#include <iomanip> // For std::setw
 
 namespace ariel {
     Board::Board(const Player& p1, const Player& p2,const Player& p3)
         : p1(p1), p2(p2), p3(p3), positionOfRobber(0), playerTurn(1) {
         initialize();
     }
-
-   void Board::initialize() {
-    // Initialize the tiles with proper resources and unique identifiers
+void Board::initialize() {
+    // Initialize the tiles with all resource types
     tileMap.insert({1, Tile(Tile::Type::FOREST, 1)});
     tileMap.insert({2, Tile(Tile::Type::HILL, 2)});
     tileMap.insert({3, Tile(Tile::Type::PASTURE, 3)});
     tileMap.insert({4, Tile(Tile::Type::FIELD, 4)});
     tileMap.insert({5, Tile(Tile::Type::MOUNTAIN, 5)});
     tileMap.insert({6, Tile(Tile::Type::DESERT, 6)});
-
-    // Repeat the resources to cover the whole board appropriately
     tileMap.insert({7, Tile(Tile::Type::FOREST, 7)});
     tileMap.insert({8, Tile(Tile::Type::HILL, 8)});
     tileMap.insert({9, Tile(Tile::Type::PASTURE, 9)});
     tileMap.insert({10, Tile(Tile::Type::FIELD, 10)});
     tileMap.insert({11, Tile(Tile::Type::MOUNTAIN, 11)});
-    tileMap.insert({12, Tile(Tile::Type::DESERT, 12)});
-    tileMap.insert({13, Tile(Tile::Type::FOREST, 13)});
-    tileMap.insert({14, Tile(Tile::Type::HILL, 14)});
-    tileMap.insert({15, Tile(Tile::Type::PASTURE, 15)});
-    tileMap.insert({16, Tile(Tile::Type::FIELD, 16)});
-    tileMap.insert({17, Tile(Tile::Type::MOUNTAIN, 17)});
-    tileMap.insert({18, Tile(Tile::Type::FOREST, 18)});
-    tileMap.insert({19, Tile(Tile::Type::HILL, 19)});
+    tileMap.insert({12, Tile(Tile::Type::FOREST, 12)});
+    tileMap.insert({13, Tile(Tile::Type::HILL, 13)});
+    tileMap.insert({14, Tile(Tile::Type::PASTURE, 14)});
+    tileMap.insert({15, Tile(Tile::Type::FIELD, 15)});
+    tileMap.insert({16, Tile(Tile::Type::MOUNTAIN, 16)});
+    tileMap.insert({17, Tile(Tile::Type::FOREST, 17)});
+    tileMap.insert({18, Tile(Tile::Type::HILL, 18)});
+    tileMap.insert({19, Tile(Tile::Type::PASTURE, 19)});
+
+    // Set vertices for each tile
+    tileMap[1].setVertices({1, 2, 3, 4, 5, 6});
+    tileMap[2].setVertices({7, 8, 9, 10, 11, 12});
+    tileMap[3].setVertices({13, 14, 15, 16, 17, 18});
+    tileMap[4].setVertices({19, 20, 21, 22, 23, 24});
+    tileMap[5].setVertices({25, 26, 27, 28, 29, 30});
+    tileMap[6].setVertices({31, 32, 33, 34, 35, 36});
+    tileMap[7].setVertices({37, 38, 39, 40, 41, 42});
+    tileMap[8].setVertices({43, 44, 45, 46, 47, 48});
+    tileMap[9].setVertices({49, 50, 51, 52, 53, 54});
+    tileMap[10].setVertices({55, 56, 57, 58, 59, 60});
+    tileMap[11].setVertices({61, 62, 63, 64, 65, 66});
+    tileMap[12].setVertices({67, 68, 69, 70, 71, 72});
+    tileMap[13].setVertices({73, 74, 75, 76, 77, 78});
+    tileMap[14].setVertices({79, 80, 81, 82, 83, 84});
+    tileMap[15].setVertices({85, 86, 87, 88, 89, 90});
+    tileMap[16].setVertices({91, 92, 93, 94, 95, 96});
+    tileMap[17].setVertices({97, 98, 99, 100, 101, 102});
+    tileMap[18].setVertices({103, 104, 105, 106, 107, 108});
+    tileMap[19].setVertices({109, 110, 111, 112, 113, 114});
 
     // Initialize the edges
     for (int i = 1; i <= 72; i++) {
@@ -47,29 +66,6 @@ namespace ariel {
     for (int i = 0; i <= 53; i++) {
         vertices.push_back(Vertex(i));
     }
-
-    // Connect vertices to tiles
-    // Here, vertices are manually connected to tiles for simplicity
-    // This part should reflect the actual game board design
-    tileMap[1].setVertices({0, 1, 2, 3, 4, 5});
-    tileMap[2].setVertices({3, 4, 5, 6, 7, 8});
-    tileMap[3].setVertices({6, 7, 8, 9, 10, 11});
-    tileMap[4].setVertices({9, 10, 11, 12, 13, 14});
-    tileMap[5].setVertices({12, 13, 14, 15, 16, 17});
-    tileMap[6].setVertices({15, 16, 17, 18, 19, 20});
-    tileMap[7].setVertices({18, 19, 20, 21, 22, 23});
-    tileMap[8].setVertices({21, 22, 23, 24, 25, 26});
-    tileMap[9].setVertices({24, 25, 26, 27, 28, 29});
-    tileMap[10].setVertices({27, 28, 29, 30, 31, 32});
-    tileMap[11].setVertices({30, 31, 32, 33, 34, 35});
-    tileMap[12].setVertices({33, 34, 35, 36, 37, 38});
-    tileMap[13].setVertices({36, 37, 38, 39, 40, 41});
-    tileMap[14].setVertices({39, 40, 41, 42, 43, 44});
-    tileMap[15].setVertices({42, 43, 44, 45, 46, 47});
-    tileMap[16].setVertices({45, 46, 47, 48, 49, 50});
-    tileMap[17].setVertices({48, 49, 50, 51, 52, 53});
-    tileMap[18].setVertices({51, 52, 53, 54, 55, 56});
-    tileMap[19].setVertices({54, 55, 56, 57, 58, 59});
 }
 
     Tile& Board::getTile(int id) {
@@ -99,6 +95,32 @@ namespace ariel {
         }
         throw std::out_of_range("Edge with given ID not found");
     }
+
+void Board::printBoard() const {
+    std::cout << "**************** CATAN BOARD ****************" << std::endl;
+    std::cout << "Tile ID  |  Resource  |  Number  |  Vertices  |  Edges" << std::endl;
+    std::cout << "-------------------------------------------------------" << std::endl;
+
+    for (const auto& tilePair : tileMap) {
+        const Tile& tile = tilePair.second;
+        std::cout << std::setw(8) << tile.getId() << " | ";
+        std::cout << std::setw(10) << tile.toString() << " | ";
+        std::cout << std::setw(7) << tile.getNumber() << " | ";
+        const std::vector<int>& vertices = tile.getVertices();
+        for (int vertex : vertices) {
+            std::cout << vertex << " ";
+        }
+        std::cout << "| ";
+        const std::vector<int>& edges = tile.getEdges();
+        for (int edge : edges) {
+            std::cout << edge << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    std::cout << "**********************************************" << std::endl;
+}
+
 
     Vertex& Board::getVertex(int id) {
         for (auto& vertex : vertices) {

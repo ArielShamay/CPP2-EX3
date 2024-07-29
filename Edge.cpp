@@ -35,7 +35,7 @@ namespace ariel {
         vertices.push_back(v);
     }
 
-    std::vector<Vertex*>& Edge::getVertices() {
+    std::vector<Vertex*> Edge::getVertices() const {
         return vertices;
     }
 }
