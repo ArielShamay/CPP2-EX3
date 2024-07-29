@@ -17,7 +17,6 @@ namespace ariel {
         enum Type { FOREST, HILL, PASTURE, FIELD, MOUNTAIN, DESERT };
 
         Tile(Type type, int id);
-
         Type getType() const;
         int getNumber() const;
         Resource getResource() const;
@@ -28,6 +27,7 @@ namespace ariel {
         std::vector<int> getEdges() const;
         int getId() const;
         std::string toString() const;
+        void setVertices(const std::vector<int>& vertices);
 
     private:
         int id;

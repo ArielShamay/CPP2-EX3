@@ -69,4 +69,8 @@ namespace ariel {
         s += " " + std::to_string(number);
         return s;
     }
+    void Tile::setVertices(const std::vector<int>& vertices) {
+    this->vertices = vertices;
+}
+
 }

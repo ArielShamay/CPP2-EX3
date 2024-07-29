@@ -14,22 +14,63 @@ namespace ariel {
         initialize();
     }
 
-    void Board::initialize() {
-        // Initialize the tiles
-        tileMap.insert({1, Tile(Tile::Type::FOREST, 1)});
-        tileMap.insert({2, Tile(Tile::Type::HILL, 2)});
-        // Add more tiles as needed
+   void Board::initialize() {
+    // Initialize the tiles with proper resources and unique identifiers
+    tileMap.insert({1, Tile(Tile::Type::FOREST, 1)});
+    tileMap.insert({2, Tile(Tile::Type::HILL, 2)});
+    tileMap.insert({3, Tile(Tile::Type::PASTURE, 3)});
+    tileMap.insert({4, Tile(Tile::Type::FIELD, 4)});
+    tileMap.insert({5, Tile(Tile::Type::MOUNTAIN, 5)});
+    tileMap.insert({6, Tile(Tile::Type::DESERT, 6)});
 
-        // Initialize the edges
-        for (int i = 1; i <= 72; i++) {
-            edges.push_back(Edge(i, 0));
-        }
+    // Repeat the resources to cover the whole board appropriately
+    tileMap.insert({7, Tile(Tile::Type::FOREST, 7)});
+    tileMap.insert({8, Tile(Tile::Type::HILL, 8)});
+    tileMap.insert({9, Tile(Tile::Type::PASTURE, 9)});
+    tileMap.insert({10, Tile(Tile::Type::FIELD, 10)});
+    tileMap.insert({11, Tile(Tile::Type::MOUNTAIN, 11)});
+    tileMap.insert({12, Tile(Tile::Type::DESERT, 12)});
+    tileMap.insert({13, Tile(Tile::Type::FOREST, 13)});
+    tileMap.insert({14, Tile(Tile::Type::HILL, 14)});
+    tileMap.insert({15, Tile(Tile::Type::PASTURE, 15)});
+    tileMap.insert({16, Tile(Tile::Type::FIELD, 16)});
+    tileMap.insert({17, Tile(Tile::Type::MOUNTAIN, 17)});
+    tileMap.insert({18, Tile(Tile::Type::FOREST, 18)});
+    tileMap.insert({19, Tile(Tile::Type::HILL, 19)});
 
-        // Initialize the vertices
-        for (int i = 0; i <= 53; i++) {
-            vertices.push_back(Vertex(i));
-        }
+    // Initialize the edges
+    for (int i = 1; i <= 72; i++) {
+        edges.push_back(Edge(i, 0));
     }
+
+    // Initialize the vertices
+    for (int i = 0; i <= 53; i++) {
+        vertices.push_back(Vertex(i));
+    }
+
+    // Connect vertices to tiles
+    // Here, vertices are manually connected to tiles for simplicity
+    // This part should reflect the actual game board design
+    tileMap[1].setVertices({0, 1, 2, 3, 4, 5});
+    tileMap[2].setVertices({3, 4, 5, 6, 7, 8});
+    tileMap[3].setVertices({6, 7, 8, 9, 10, 11});
+    tileMap[4].setVertices({9, 10, 11, 12, 13, 14});
+    tileMap[5].setVertices({12, 13, 14, 15, 16, 17});
+    tileMap[6].setVertices({15, 16, 17, 18, 19, 20});
+    tileMap[7].setVertices({18, 19, 20, 21, 22, 23});
+    tileMap[8].setVertices({21, 22, 23, 24, 25, 26});
+    tileMap[9].setVertices({24, 25, 26, 27, 28, 29});
+    tileMap[10].setVertices({27, 28, 29, 30, 31, 32});
+    tileMap[11].setVertices({30, 31, 32, 33, 34, 35});
+    tileMap[12].setVertices({33, 34, 35, 36, 37, 38});
+    tileMap[13].setVertices({36, 37, 38, 39, 40, 41});
+    tileMap[14].setVertices({39, 40, 41, 42, 43, 44});
+    tileMap[15].setVertices({42, 43, 44, 45, 46, 47});
+    tileMap[16].setVertices({45, 46, 47, 48, 49, 50});
+    tileMap[17].setVertices({48, 49, 50, 51, 52, 53});
+    tileMap[18].setVertices({51, 52, 53, 54, 55, 56});
+    tileMap[19].setVertices({54, 55, 56, 57, 58, 59});
+}
 
     Tile& Board::getTile(int id) {
         if (tileExists(id)) {
