@@ -17,6 +17,7 @@ namespace ariel {
         enum Type { FOREST, HILL, PASTURE, FIELD, MOUNTAIN, DESERT };
 
         Tile(); // קונסטרקטור ברירת מחדל
+        Tile(int id, Type type, int number); // קונסטרקטור חדש
         Tile(Type type, int id);
         Type getType() const;
         int getNumber() const;

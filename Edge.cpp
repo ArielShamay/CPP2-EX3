@@ -1,18 +1,15 @@
 #include "Edge.hpp"
 
 namespace ariel {
-    Edge::Edge(int id, int sub_id) : id(id), sub_id(sub_id), player_id("") {}
+
+    Edge::Edge(int id) : id(id), player_id("") {} // עדכון הבנאי ללקיחת מזהה יחיד
 
     bool Edge::operator==(const Edge& rhs) const {
-        return id == rhs.id && sub_id == rhs.sub_id;
+        return id == rhs.id;
     }
 
     int Edge::getId() const {
         return id;
-    }
-
-    int Edge::getSubId() const {
-        return sub_id;
     }
 
     void Edge::addNeighbor(Edge* e) {
@@ -31,11 +28,16 @@ namespace ariel {
         return player_id;
     }
 
-    void Edge::addVertex(Vertex* v) {
+    void Edge::addVertex(int v) {
         vertices.push_back(v);
     }
 
-    std::vector<Vertex*> Edge::getVertices() const {
+    void Edge::addVertices(int v1, int v2) { // הוספת שני קודקודים למערך
+        vertices.push_back(v1);
+        vertices.push_back(v2);
+    }
+
+    std::vector<int> Edge::getVertices() const { // החזרת רשימת הקודקודים
         return vertices;
     }
 }

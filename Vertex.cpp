@@ -22,6 +22,9 @@ namespace ariel {
     void Vertex::setPlayerId(const std::string& playerId) {
         this->playerId = playerId;
     }
+   void Vertex::addEdges(std::initializer_list<int> edgeIds) {
+    edges.insert(edges.end(), edgeIds.begin(), edgeIds.end());
+}
 
     const std::vector<int>& Vertex::getEdges() const { // מימוש הפונקציה הזאת
         return edges;

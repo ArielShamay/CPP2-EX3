@@ -3,7 +3,6 @@
 
 #include <vector>
 #include <string>
-#include <map>
 #include "Edge.hpp"
 #include "Vertex.hpp"
 #include "Player.hpp"
@@ -11,14 +10,12 @@
 
 namespace ariel {
     class Board {
-   
-     public:
+    public:
         Board(const Player& p1, const Player& p2, const Player& p3);
 
         void initialize();
         Tile& getTile(int id);
-        std::vector<Tile> getTiles() const;
-        bool tileExists(int id) const;
+        std::vector<Tile> getTiles();
         Edge& getEdge(int id);
         Vertex& getVertex(int id);
         void addTile(const Tile& tile);
@@ -33,7 +30,6 @@ namespace ariel {
         void reduceHalfResourcesFromPlayers();
         void setRobber(int position);
         int getRobber() const;
-        const Player& getPlayer(int id) const;
         Player& getPlayer(int id); 
         void monopolyAction(size_t res, Player& player);
         void checkVictoryPoints();
@@ -48,7 +44,7 @@ namespace ariel {
         const Player& p3;
         int positionOfRobber;
         int playerTurn;
-        std::map<int, Tile> tileMap;
+        std::vector<Tile> tiles;
         std::vector<Edge> edges;
         std::vector<Vertex> vertices;
     };

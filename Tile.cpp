@@ -13,6 +13,11 @@ namespace ariel {
         edges.resize(6);
     }
 
+    Tile::Tile(int id, Type type, int number) : id(id), type(type), number(number) {
+        vertices.resize(6);
+        edges.resize(6);
+    }
+
     Tile::Type Tile::getType() const {
         return type;
     }

@@ -18,7 +18,8 @@ namespace ariel {
         std::string getPlayerId() const;
         void setPlayerId(const std::string& playerId);
         const std::vector<int>& getEdges() const; // הוספת הפונקציה הזאת
-
+        void addEdges(std::initializer_list<int> edgeIds);
+        
     private:
         int id;
         CityType cityType;
