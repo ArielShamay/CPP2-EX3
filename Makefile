@@ -1,22 +1,30 @@
-CXX = g++
-CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -I/home/ariel/CPP2-EX3 -I/home/ariel/CPP2-EX3/doctest
-LDFLAGS =
+#!make -f
 
-SRCS = Demo.cpp Tile.cpp Edge.cpp Vertex.cpp Player.cpp DevelopmentCard.cpp Game.cpp Board.cpp Resource.cpp
-HEADERS = Tile.hpp Edge.hpp Vertex.hpp Resource.hpp Player.hpp DevelopmentCard.hpp Game.hpp Board.hpp doctest/doctest.h
+CXX=g++  
+CXXFLAGS=-g -Wall 
+VALGRIND_FLAGS=-v --leak-check=full --show-leak-kinds=all  --error-exitcode=99
 
-OBJS = $(SRCS:.cpp=.o)
+SOURCES_DEMO=Demo.cpp Board.cpp Player.cpp Tile.cpp Edge.cpp Vertex.cpp Game.cpp DevelopmentCard.cpp
+OBJECTS_DEMO=$(subst .cpp,.o,$(SOURCES_DEMO))
 
-all: catan
+SOURCES_TEST=Board.cpp Player.cpp Tile.cpp Edge.cpp Vertex.cpp Game.cpp DevelopmentCard.cpp TestCounter.cpp Test.cpp
+OBJECTS_TEST=$(subst .cpp,.o,$(SOURCES_TEST))
 
-catan: $(OBJS)
-	$(CXX) $(LDFLAGS) -o catan $(OBJS)
+catan: main
+	./$^
 
-%.o: %.cpp $(HEADERS)
-	$(CXX) $(CXXFLAGS) -c $< -o $@
+main: $(OBJECTS_DEMO)
+	$(CXX) $(CXXFLAGS) $^ -o main
+
+test: TestCounter.o Test.o $(OBJECTS_TEST)
+	$(CXX) $(CXXFLAGS) $^ -o test
+
+valgrind: main test
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./demo 2>&1 | { egrep "lost| at " || true; }
+	valgrind --tool=memcheck $(VALGRIND_FLAGS) ./test 2>&1 | { egrep "lost| at " || true; }
+
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) --compile $< -o $@
 
 clean:
-	rm -f *.o catan
-
-test: catan
-	./catan
+	rm -f *.o main test

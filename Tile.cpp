@@ -1,87 +1,40 @@
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
+
 #include "Tile.hpp"
-#include "Player.hpp"
+#include "Board.hpp"
 
-namespace ariel {
+Tile::Tile(int id, ResourceType res, int num) : id(id), resource(res), number(num) 
+{
+    vertices.resize(6);
+}
 
-    Tile::Tile() : id(0), type(DESERT), number(0) { // קונסטרקטור ברירת מחדל
-        vertices.resize(6);
-        edges.resize(6);
-    }
+void Tile::addVertex(int v1, int v2, int v3, int v4, int v5, int v6)
+{
+    vertices.push_back(v1);
+    vertices.push_back(v2);
+    vertices.push_back(v3);
+    vertices.push_back(v4);
+    vertices.push_back(v5);
+    vertices.push_back(v6);
+}
 
-    Tile::Tile(Type type, int id) : id(id), type(type), number(0) {
-        vertices.resize(6);
-        edges.resize(6);
-    }
+size_t Tile::getNumber() const
+{
+    return number;
+}
 
-    Tile::Tile(int id, Type type, int number) : id(id), type(type), number(number) {
-        vertices.resize(6);
-        edges.resize(6);
-    }
+ResourceType Tile::getResource() const
+{
+    return resource;
+}
 
-    Tile::Type Tile::getType() const {
-        return type;
-    }
+vector<int> Tile::getVertices() const
+{
+    return vertices;
+}
 
-    int Tile::getNumber() const {
-        return number;
-    }
-
-    Resource Tile::getResource() const {
-        switch (type) {
-            case FOREST: return Resource::WOOD;
-            case HILL: return Resource::BRICK;
-            case PASTURE: return Resource::WOOL;
-            case FIELD: return Resource::GRAIN;
-            case MOUNTAIN: return Resource::ORE;
-            default: return Resource::NONE;
-        }
-    }
-
-    void Tile::setNumber(int number) {
-        this->number = number;
-    }
-
-    void Tile::addVertex(int v1, int v2, int v3, int v4, int v5, int v6) {
-        vertices[0] = v1;
-        vertices[1] = v2;
-        vertices[2] = v3;
-        vertices[3] = v4;
-        vertices[4] = v5;
-        vertices[5] = v6;
-    }
-
-    std::vector<int> Tile::getVertices() const {
-        return vertices;
-    }
-
-    void Tile::addEdge(int edge) {
-        edges.push_back(edge);
-    }
-
-    std::vector<int> Tile::getEdges() const {
-        return edges;
-    }
-
-    int Tile::getId() const {
-        return id;
-    }
-
-    std::string Tile::toString() const {
-        std::string s;
-        switch (type) {
-            case FOREST: s = "FOREST"; break;
-            case HILL: s = "HILL"; break;
-            case PASTURE: s = "PASTURE"; break;
-            case FIELD: s = "FIELD"; break;
-            case MOUNTAIN: s = "MOUNTAIN"; break;
-            default: s = "DESERT"; break;
-        }
-        if (s == "DESERT") return s;
-        s += " " + std::to_string(number);
-        return s;
-    }
-
-    void Tile::setVertices(const std::vector<int>& vertices) {
-        this->vertices = vertices;
-    }
+int Tile::getId() const
+{
+    return id;
 }

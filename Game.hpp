@@ -1,44 +1,22 @@
-#ifndef GAME_HPP
-#define GAME_HPP
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
 
+#ifndef CATAN_HPP
+#define CATAN_HPP
+
+#include <vector>
 #include "Board.hpp"
 #include "Player.hpp"
-#include "DevelopmentCard.hpp"
-#include <vector>
-#include <algorithm>
-#include <random>
-#include <ctime>
 
-namespace ariel {
-    class Game {
-     
-    public:
-        Game(const std::vector<Player>& players);
-
-        void start();
-        void playTurn(Player& player);
-        void rollDice(Player& player);
-        void buildSettlement(Player& player);
-        void buildCity(Player& player);
-        void buildRoad(Player& player);
-        void buyDevelopmentCard(Player& player);
-        void endTurn(Player& player);
-
-        bool isGameOver() const;
-        Player getWinner() const;
-
-        void printWinner() const;
-        Board& getBoard();  // שינוי כדי להחזיר reference
-        DevelopmentCards& getDevelopmentCards(); 
-        void ChooseStartingPlayer();
-
+class Catan {
     private:
-        std::vector<Player> players;
-        int currentPlayerIndex;
-        bool gameOver;
-        Board board;
-        DevelopmentCards devCards;
-    };
-} // namespace ariel
+        Board board; // The game board
+    public:
+        // Constructor
+        Catan(Player& p1, Player& p2, Player& p3);
 
-#endif // GAME_HPP
+        // Getters
+        Board& getBoard();
+};
+
+#endif // CATAN_HPP

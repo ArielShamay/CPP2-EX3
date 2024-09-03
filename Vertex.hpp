@@ -1,31 +1,39 @@
+
+
 #ifndef VERTEX_HPP
 #define VERTEX_HPP
 
-#include <string>
+#include <iostream>
 #include <vector>
-#include "Player.hpp"
+using namespace std;
 
-namespace ariel {
-    class Vertex {
+enum Building { CITY, SETTLEMENT, NO_BUILDING };
+
+class Vertex {
+    private:
+        Building building; // Type of building on the vertex
+        int id; // Vertex ID
+        int owner; // ID of the player owning the vertex
+        vector<int> edges; // IDs of connected edges
     public:
-        enum class CityType { NONE, SETTLEMENT, CITY };
-
+        // Constructor
         Vertex(int id);
 
+        // Builds a structure (city or settlement) for a player
+        void build(int player, Building type);
+
+        // Adds edges connected to this vertex
+        void addEdges(int vertex, int vertex2, int vertex3 = -1);
+
+        // Getters
+        Building getBuilding() const;
         int getId() const;
-        CityType getCityType() const;
-        void setCityType(CityType cityType);
-        std::string getPlayerId() const;
-        void setPlayerId(const std::string& playerId);
-        const std::vector<int>& getEdges() const; // הוספת הפונקציה הזאת
-        void addEdges(std::initializer_list<int> edgeIds);
-        
-    private:
-        int id;
-        CityType cityType;
-        std::string playerId;
-        std::vector<int> edges; // רשימת הצלעות המקושרות לקודקוד הזה
-    };
-} // namespace ariel
+        int getOwner() const;
+        vector<int>& getEdges();
+
+        // Setters
+        void setOwner(int player);
+        void setBuilding(Building type);
+};
 
 #endif // VERTEX_HPP

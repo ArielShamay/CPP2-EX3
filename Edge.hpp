@@ -1,33 +1,41 @@
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
+
 #ifndef EDGE_HPP
 #define EDGE_HPP
 
+#include "Player.hpp"
 #include <vector>
-#include <string>
+#include <iostream>
+using namespace std;
 
-namespace ariel {
-    class Vertex; // Forward declaration
+enum Road { ROAD, NO_ROAD };
 
-    class Edge {
-    public:
-        Edge(int id); // עדכון הבנאי ללקיחת מזהה יחיד
-
-        bool operator==(const Edge& rhs) const;
-
-        int getId() const;
-        void addNeighbor(Edge* e);
-        std::vector<Edge*>& getNeighbors();
-        void setPlayerId(const std::string& id);
-        std::string getPlayerId() const;
-        void addVertex(int v);
-        void addVertices(int v1, int v2); // פונקציה להוספת שני קודקודים בבת אחת
-        std::vector<int> getVertices() const; // חזרת המזהים של הקודקודים
-
+class Edge {
     private:
-        int id;
-        std::string player_id;
-        std::vector<Edge*> neighbors;
-        std::vector<int> vertices; // רשימת מזהי הקודקודים המקושרים לצלע
-    };
-} // namespace ariel
+        Road road; // Type of road on the edge
+        int id; // Edge ID
+        int owner; // ID of the player owning the edge
+        vector<int> vertices; // IDs of vertices connected to the edge
+
+    public:
+        // Constructor
+        Edge(int id);
+
+        // Builds a road for a player
+        void buildRoad(int player);
+
+        // Adds vertices connected to this edge
+        void addVertices(int vertex1, int vertex2);
+
+        // Getters
+        Road getRoad() const;
+        int getId() const;
+        int getOwner() const;
+        vector<int> getVertices() const;
+
+        // Setters
+        void setOwner(int player);
+};
 
 #endif // EDGE_HPP

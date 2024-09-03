@@ -1,96 +1,85 @@
-#include <iostream>
-#include <stdexcept>
-#include <vector>
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
+
 #include "Game.hpp"
-#include "Player.hpp"
+#include <iostream>
 #include "Board.hpp"
-
 using namespace std;
-using namespace ariel;
 
-int main()
+
+int main() 
 {
-    Player p1("Maria");
-    Player p2("Rout");
-    Player p3("Rachel");
-    Game catan({p1, p2, p3});
+    Player p1(1, "Amit"); // red
+    Player p2(2, "Yossi"); // yellow
+    Player p3(3, "Dana"); // blue
+    Catan catan(p1, p2, p3);
+    Board& board = catan.getBoard();
     
-    // Start of the game. Every player places two settlements and two roads.
-    catan.ChooseStartingPlayer();   // should print the name of the starting player
-    Board& board = catan.getBoard(); // get the board of the game
+    cout << "-----------------------------------------" << endl;
 
-    board.printBoard();
+    // initialize settlments and roads for each player
+    p1.initSettlements_Roads(2, 10, board);
+    p1.initSettlements_Roads(25, 39, board);
+    p2.initSettlements_Roads(13, 15, board);
+    p2.initSettlements_Roads(42, 59, board);
+    p3.initSettlements_Roads(44, 57, board);
+    p3.initSettlements_Roads(40, 56, board);
+
+    cout << "-----------------------------------------" << endl;
+
+    if(board.getVertex(13).getBuilding() == SETTLEMENT)
+    {
+        cout << "Vertex 13 has a settlement" << endl;
+    }
+    else
+    {
+        cout << "Vertex 13 has no settlement" << endl;
+    }
+
+    cout << "-----------------------------------------" << endl;
     
-    // Initial placements
-    if (!p1.placeSettlement(1, board)) {
-        cout << "Cannot place settlement for Maria at vertex 1" << endl;
-    }
-    if (!p1.placeRoad(1, board)) {
-        cout << "Cannot place road for Maria at edge 1" << endl;
-    }
-    if (!p2.placeSettlement(2, board)) {
-        cout << "Cannot place settlement for Rout at vertex 2" << endl;
-    }
-    if (!p2.placeRoad(2, board)) {
-        cout << "Cannot place road for Rout at edge 2" << endl;
-    }
-    if (!p3.placeSettlement(3, board)) {
-        cout << "Cannot place settlement for Rachel at vertex 3" << endl;
-    }
-    if (!p3.placeRoad(3, board)) {
-        cout << "Cannot place road for Rachel at edge 3" << endl;
-    }
+    
+    for (int i = 0; i < 100; i++)
+    {
+        p1.rollDices(board);
+        p1.endTurn(board);
 
-    if (!p1.placeSettlement(4, board)) {
-        cout << "Cannot place settlement for Maria at vertex 4" << endl;
-    }
-    if (!p1.placeRoad(4, board)) {
-        cout << "Cannot place road for Maria at edge 4" << endl;
-    }
-    if (!p2.placeSettlement(5, board)) {
-        cout << "Cannot place settlement for Rout at vertex 5" << endl;
-    }
-    if (!p2.placeRoad(5, board)) {
-        cout << "Cannot place road for Rout at edge 5" << endl;
-    }
-    if (!p3.placeSettlement(6, board)) {
-        cout << "Cannot place settlement for Rachel at vertex 6" << endl;
-    }
-    if (!p3.placeRoad(6, board)) {
-        cout << "Cannot place road for Rachel at edge 6" << endl;
-    }
+        p2.rollDices(board);
+        p2.endTurn(board);
 
-    // Simulate turns
-    for (int turn = 0; turn < 30; ++turn) {
-        Player& current_player = catan.getBoard().getPlayer(catan.getBoard().getPlayerTurn());
-        
-        current_player.rollDice(board);
-        
-        if (turn % 3 == 0) {
-            // Every 3rd turn try to build settlements/roads/cities
-            if (board.canBuildSettlement(turn % 20, current_player)) {
-                if (!current_player.placeSettlement(turn % 20, board)) {
-                    cout << "Cannot place settlement for " << current_player.getName() << " at vertex " << turn % 20 << endl;
-                }
-            }
-            if (board.canBuildRoad(turn % 70, current_player)) {
-                if (!current_player.placeRoad(turn % 70, board)) {
-                    cout << "Cannot place road for " << current_player.getName() << " at edge " << turn % 70 << endl;
-                }
-            }
-            current_player.buildCity();
-        }
-        
-        current_player.endTurn(board);
+        p3.rollDices(board);
+        p3.endTurn(board);
     }
+    
+    cout << "-----------------------------------------" << endl;
+    
+    p1.placeRoad(5, board);
+    p1.placeSettlement(4, board);
+    p1.endTurn(board);
 
-    // Print final points
-    p1.printPoints(); 
-    p2.printPoints(); 
-    p3.printPoints();
+    p2.rollDices(board);
+    p2.placeRoad(26, board);
+    p2.placeSettlement(21, board);
+    p2.endTurn(board);
 
-    // Determine winner
-    catan.printWinner(); 
+    p3.rollDices(board);
+    p3.tradeFromto(SHEEP, WOOD, board);
+    p3.endTurn(board);
 
-    return 0;
+    cout << "-----------------------------------------" << endl;
+
+    p1.buyDevCard(board);
+    p1.useDevCard("Road Building", board);
+    p1.useDevCard("Knight", board);
+    p1.useDevCard("Year of Plenty", board);
+    p1.useDevCard("Monopoly", board);
+    p1.endTurn(board);
+
+    cout << "-----------------------------------------" << endl;
+    p1.status();
+    p2.status();
+    p3.status();
+    
+    // This program will close the game arbitrarily regardless of the game progress
+    board.finishGame();
 }

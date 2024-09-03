@@ -1,32 +1,63 @@
+
+
 #include "Vertex.hpp"
 
-namespace ariel {
-    Vertex::Vertex(int id) : id(id), cityType(CityType::NONE), playerId("") {}
+Vertex::Vertex(int id): building(NO_BUILDING), id(id), owner(0){}
 
-    int Vertex::getId() const {
-        return id;
+void Vertex::build(int player, Building type)
+{
+    if(building == NO_BUILDING)
+    {
+        building = type;
+        owner = player;
     }
-
-    Vertex::CityType Vertex::getCityType() const {
-        return cityType;
-    }
-
-    void Vertex::setCityType(CityType cityType) {
-        this->cityType = cityType;
-    }
-
-    std::string Vertex::getPlayerId() const {
-        return playerId;
-    }
-
-    void Vertex::setPlayerId(const std::string& playerId) {
-        this->playerId = playerId;
-    }
-   void Vertex::addEdges(std::initializer_list<int> edgeIds) {
-    edges.insert(edges.end(), edgeIds.begin(), edgeIds.end());
-}
-
-    const std::vector<int>& Vertex::getEdges() const { // מימוש הפונקציה הזאת
-        return edges;
+    else
+    {
+        std::cout << "Building already built" << std::endl;
     }
 }
+
+void Vertex::addEdges(int vertex, int vertex2, int vertex3)
+{
+    edges.push_back(vertex);
+    edges.push_back(vertex2);
+    if(vertex3 != -1)
+    {
+        edges.push_back(vertex3);
+    }
+}
+
+Building Vertex::getBuilding() const
+{
+    return building;
+}
+
+int Vertex::getId() const
+{
+    return id;
+}
+
+int Vertex::getOwner() const
+{
+    return owner;
+}
+
+std::vector<int>& Vertex::getEdges()
+{
+    return edges;
+}
+
+void Vertex::setOwner(int player)
+{
+    owner = player;
+}
+
+void Vertex::setBuilding(Building type)
+{
+    building = type;
+}
+
+
+
+
+

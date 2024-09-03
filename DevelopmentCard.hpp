@@ -1,37 +1,64 @@
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
+
+
 #ifndef DEVELOPMENTCARD_HPP
 #define DEVELOPMENTCARD_HPP
 
-#include <string>
-#include <vector>
-#include <cstdlib> // for std::rand
+#include <iostream>
+using namespace std;
 
-namespace ariel {
-
-    class DevelopmentCard {
-    public:
-        enum class Type { KNIGHT, VICTORY_POINT, ROAD_BUILDING, YEAR_OF_PLENTY, MONOPOLY };
-
-        DevelopmentCard(); // Default constructor
-        DevelopmentCard(Type type);
-
-        Type getType() const;
-        std::string toString() const;
-
+class DevelopmentCard {
     private:
-        Type type;
-    };
-
-    class DevelopmentCards {
+        size_t knights; // Number of knight cards
+        size_t victoryPoints; // Number of victory point cards
+        size_t roadBuilding; // Number of road building cards
+        size_t yearOfPlenty; // Number of year of plenty cards
+        size_t monopoly; // Number of monopoly cards
+        size_t openKnights; // Number of open knight cards
+        bool biggestArmy; // Indicates if the player has the biggest army
     public:
-        DevelopmentCards();
+        static const size_t MAX_KNIGHTS = 3; // Maximum number of knight cards
+        static const size_t MAX_VICTORY_POINTS = 4; // Maximum number of victory point cards
 
-        DevelopmentCard drawCard();
-        void addCard(const DevelopmentCard& card);
+        // Constructor
+        DevelopmentCard();
 
-    private:
-        std::vector<DevelopmentCard> deck;
-    };
+        // Buys a development card
+        void buyCard();
 
-} // namespace ariel
+        // Adds a specific type of card
+        void addKnight();
+        void addVictoryPoint();
+        void addRoadBuilding();
+        void addYearOfPlenty();
+        void addMonopoly();
+        void addOpenKnight();
 
-#endif // DEVELOPMENTCARD_HPP
+        // Removes a specific type of card
+        void removeKnight();
+        void removeVictoryPoint();
+        void removeRoadBuilding();
+        void removeYearOfPlenty();
+        void removeMonopoly();
+        void removeOpenKnight();
+
+        // Sets the biggest army status
+        void setBiggestArmy(bool biggestArmy);
+
+        // Getters
+        size_t getKnight() const;
+        size_t getVictoryPoint() const;
+        size_t getRoadBuilding() const;
+        size_t getYearOfPlenty() const;
+        size_t getMonopoly() const;
+        size_t getOpenKnight() const;
+        bool getBiggestArmy() const;
+
+        // Other methods
+        size_t countCards() const; // Counts the total number of cards
+        void status() const; // Displays the status of development cards
+        size_t getPoints() const; // Gets the total points from the cards
+};
+
+#endif // DEVELOPMENTCARDS_HPP

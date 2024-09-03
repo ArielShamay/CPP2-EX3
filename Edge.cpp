@@ -1,43 +1,58 @@
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
+
 #include "Edge.hpp"
 
-namespace ariel {
+Edge::Edge(int id):  road(NO_ROAD), id(id), owner(0){}
 
-    Edge::Edge(int id) : id(id), player_id("") {} // עדכון הבנאי ללקיחת מזהה יחיד
-
-    bool Edge::operator==(const Edge& rhs) const {
-        return id == rhs.id;
+void Edge::buildRoad(int player)
+{
+    if(road == NO_ROAD)
+    {
+        road = ROAD;
+        owner = player;
     }
-
-    int Edge::getId() const {
-        return id;
+    else
+    {
+        std::cout << "Road already built" << std::endl;
     }
+}
 
-    void Edge::addNeighbor(Edge* e) {
-        neighbors.push_back(e);
+void Edge::addVertices(int vertex1, int vertex2)
+{
+    vertices.push_back(vertex1);
+    vertices.push_back(vertex2);
+}
+
+Road Edge::getRoad() const
+{
+    return road;
+}
+
+int Edge::getId() const
+{
+    return id;
+}
+
+int Edge::getOwner() const
+{
+    return owner;
+}
+
+std::vector<int> Edge::getVertices() const
+{
+    return vertices;
+}
+
+void Edge::setOwner(int player)
+{
+    owner = player;
+    if (player == 0)
+    {
+        road = NO_ROAD;
     }
-
-    std::vector<Edge*>& Edge::getNeighbors() {
-        return neighbors;
-    }
-
-    void Edge::setPlayerId(const std::string& id) {
-        player_id = id;
-    }
-
-    std::string Edge::getPlayerId() const {
-        return player_id;
-    }
-
-    void Edge::addVertex(int v) {
-        vertices.push_back(v);
-    }
-
-    void Edge::addVertices(int v1, int v2) { // הוספת שני קודקודים למערך
-        vertices.push_back(v1);
-        vertices.push_back(v2);
-    }
-
-    std::vector<int> Edge::getVertices() const { // החזרת רשימת הקודקודים
-        return vertices;
+    else
+    {
+        road = ROAD;
     }
 }

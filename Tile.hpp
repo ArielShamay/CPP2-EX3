@@ -1,43 +1,35 @@
+// mail - Arielsh49@gmail.com
+// Author - Ariel Shamay
+
 #ifndef TILE_HPP
 #define TILE_HPP
 
+#include <iostream>
 #include <vector>
-#include <string>
-#include "Resource.hpp"
-#include "Edge.hpp"
-#include "Vertex.hpp"
+using namespace std;
 
-namespace ariel {
-    class Player; // Forward declaration
-    class Vertex; // Forward declaration
-    class Edge; // Forward declaration
+class Board;
 
-    class Tile {
-    public:
-        enum Type { FOREST, HILL, PASTURE, FIELD, MOUNTAIN, DESERT };
+enum ResourceType { WOOD, BRICK, WHEAT, SHEEP, IRON, DESERT };
 
-        Tile(); // קונסטרקטור ברירת מחדל
-        Tile(int id, Type type, int number); // קונסטרקטור חדש
-        Tile(Type type, int id);
-        Type getType() const;
-        int getNumber() const;
-        Resource getResource() const;
-        void setNumber(int number);
-        void addVertex(int v1, int v2, int v3, int v4, int v5, int v6);
-        std::vector<int> getVertices() const;
-        void addEdge(int edge);
-        std::vector<int> getEdges() const;
-        int getId() const;
-        std::string toString() const;
-        void setVertices(const std::vector<int>& vertices);
-
+class Tile {
     private:
-        int id;
-        Type type;
-        int number;
-        std::vector<int> vertices;
-        std::vector<int> edges;
-    };
-} // namespace ariel
+        int id; // Tile ID
+        ResourceType resource; // Resource type of the tile
+        size_t number; // Tile number for resource distribution
+        vector<int> vertices; // IDs of vertices connected to the tile
+    public:
+        // Constructor
+        Tile(int id, ResourceType res, int num);
+
+        // Adds vertices connected to this tile
+        void addVertex(int v1, int v2, int v3, int v4, int v5, int v6);
+
+        // Getters
+        size_t getNumber() const;
+        ResourceType getResource() const;
+        vector<int> getVertices() const;
+        int getId() const;
+};
 
 #endif // TILE_HPP
