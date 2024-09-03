@@ -1,3 +1,7 @@
+// Name - Ariel Shamay
+// CP_EX_3
+// Mail - Arielsh49@gmail.com
+
 #include "Resource.hpp"
 
 namespace ariel {

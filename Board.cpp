@@ -1,5 +1,6 @@
-// mail - Arielsh49@gmail.com
-// Author - Ariel Shamay
+// Name - Ariel Shamay
+// CP_EX_3
+// Mail - Arielsh49@gmail.com
 
 #include "Board.hpp"
 

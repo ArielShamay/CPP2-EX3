@@ -1,5 +1,7 @@
-// mail - omer7530@gmail.com
-// Author - Omer Cohen
+// Name - Ariel Shamay
+// CP_EX_3
+// Mail - Arielsh49@gmail.com
+
 
 #ifndef PLAYER_HPP
 #define PLAYER_HPP

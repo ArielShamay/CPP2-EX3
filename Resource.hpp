@@ -1,3 +1,7 @@
+// Name - Ariel Shamay
+// CP_EX_3
+// Mail - Arielsh49@gmail.com
+
 #ifndef RESOURCE_HPP
 #define RESOURCE_HPP
 
