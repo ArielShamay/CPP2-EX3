@@ -37,7 +37,7 @@ git clone https://github.com/ArielShamay/SettlersOfCatan.git
 ### Navigate to Project Directory
 
 ```bash
-cd CPP2-EX3-main
+cd SettlersOfCatan
 ```
 
 ### Build the Project
